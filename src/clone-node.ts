@@ -79,15 +79,9 @@ function cloneCSSStyle<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
     targetStyle.transformOrigin = sourceStyle.transformOrigin
   } else {
     toArray<string>(sourceStyle).forEach((name) => {
-      let value = sourceStyle.getPropertyValue(name)
-      if (name === 'font-size' && value.endsWith('px')) {
-        const reducedFont =
-          Math.floor(parseFloat(value.substring(0, value.length - 2))) - 0.1
-        value = `${reducedFont}px`
-      }
       targetStyle.setProperty(
         name,
-        value,
+        sourceStyle.getPropertyValue(name),
         sourceStyle.getPropertyPriority(name),
       )
     })
