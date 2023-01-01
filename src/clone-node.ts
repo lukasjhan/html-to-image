@@ -84,6 +84,10 @@ function cloneCSSStyle<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
         const reducedFont = parseFloat(value) - 0.1
         value = `${reducedFont}px`
       }
+      if (name === 'line-height' && value.endsWith('px')) {
+        const lineHeight = parseFloat(value) + 2
+        value = `${lineHeight}px`
+      }
       targetStyle.setProperty(
         name,
         value,
