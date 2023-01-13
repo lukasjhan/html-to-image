@@ -79,15 +79,15 @@ function cloneCSSStyle<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
     targetStyle.transformOrigin = sourceStyle.transformOrigin
   } else {
     toArray<string>(sourceStyle).forEach((name) => {
-      let value = sourceStyle.getPropertyValue(name)
-      if (name === 'font-size' && value.endsWith('px')) {
-        const reducedFont = parseFloat(value) - 0.1
-        value = `${reducedFont}px`
+      if (clonedNode.tagName.toUpperCase() === 'P' && name === 'width') {
+        targetStyle.setProperty(
+          name,
+          'auto',
+          sourceStyle.getPropertyPriority(name),
+        )
+        return
       }
-      if (name === 'line-height' && value.endsWith('px')) {
-        const lineHeight = parseFloat(value) + 2
-        value = `${lineHeight}px`
-      }
+      const value = sourceStyle.getPropertyValue(name)
       targetStyle.setProperty(
         name,
         value,
