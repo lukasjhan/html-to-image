@@ -79,18 +79,13 @@ function cloneCSSStyle<T extends HTMLElement>(nativeNode: T, clonedNode: T) {
     targetStyle.transformOrigin = sourceStyle.transformOrigin
   } else {
     toArray<string>(sourceStyle).forEach((name) => {
-      if (clonedNode.tagName.toUpperCase() === 'P' && name === 'width') {
-        targetStyle.setProperty(
-          name,
-          'auto',
-          sourceStyle.getPropertyPriority(name),
-        )
+      const attribute = nativeNode.getAttribute(name)
+      if (attribute === null) {
         return
       }
-      const value = sourceStyle.getPropertyValue(name)
       targetStyle.setProperty(
         name,
-        value,
+        attribute,
         sourceStyle.getPropertyPriority(name),
       )
     })
