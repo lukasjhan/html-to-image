@@ -219,6 +219,7 @@ export async function nodeToDataURL(
   foreignObject.setAttribute('externalResourcesRequired', 'true')
 
   svg.appendChild(foreignObject)
+  ;(svg.style as any).zoom = window.devicePixelRatio
   foreignObject.appendChild(node)
 
   return svgToDataURL(svg)
